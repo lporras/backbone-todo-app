@@ -175,7 +175,7 @@
 
     addOne: function(todo) {
       var view = new app.TodoView({model: todo});
-      this.$('#todo-list').append(view.render().el);
+      this.$('#todo-list').prepend(view.render().el);
     },
 
     removeOne: function(todo) {
@@ -183,6 +183,7 @@
     },
 
     addAll: function() {
+      this.$("#todo-list").html("");
       app.Todos.each(function(todo) {
         var view = new app.TodoView({model: todo});
         this.$('#todo-list').prepend(view.render().el);
@@ -247,7 +248,7 @@
 
   app.TodosBackpusher = new Backpusher(channel, app.Todos);
 
-
+/*
   app.TodosBackpusher.bind('remote_create', function(model) {
     var title = document.title;
     var matches = title.match(/\[(\d+) (\w+)\]/);
@@ -297,4 +298,5 @@
       document.title = 'Todos';
     }, 2000);
   }
+*/
 });
