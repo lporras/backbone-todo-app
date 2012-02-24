@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+ruby_version="ruby-1.9.2-p290"
+gemset_name="todo-backbone-pusher"
+
+ok="\033[10;32m"
+warn="\033[1;31m"
+reset="\033[0m"
+
+if rvm list strings | grep -q "${ruby_version}" ; then
+
+  # Load or create the specified environment
+  if [[ -d "${rvm_path:-$HOME/.rvm}/environments" \
+    && -s "${rvm_path:-$HOME/.rvm}/environments/${ruby_version}@${gemset_name}" ]] ; then
+    \. "${rvm_path:-$HOME/.rvm}/environments/${ruby_version}@${gemset_name}"
+    echo -e "${ok}Using the ${gemset_name} gemset${reset}"
+  else
+    echo -e "${ok}The ${gemset_name} gemset does not exist, creating ${ruby_version}@${gemset_name} gemset${reset}"
+    rvm --create "${ruby_version}@${gemset_name}"
+  fi
+
+else
+
+  # Notify the user to install the desired interpreter before proceeding.
+  echo -e "${warn}${ruby_version} was not found, please run 'rvm install ${ruby_version}' and then cd back into the project directory.${reset}"
+
+fi
